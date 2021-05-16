@@ -10,9 +10,9 @@ import {
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStyles } from "./Home.styles";
+import { useStyles } from "./home.styles";
 import { getCategories } from "./home.services";
-import { Category } from "./Home.types";
+import { Category } from "./home.types";
 
 function Home() {
 	const navigate = useNavigate();
