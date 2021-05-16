@@ -9,11 +9,13 @@ import {
 	Button,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useStyles } from "./home.styles";
-import { getCategories } from "./home.services";
-import { Category } from "./home.types";
+import { useNavigate } from "react-router-dom";
+import { useStyles } from "./Home.styles";
+import { getCategories } from "./Home.services";
+import { Category } from "./Home.types";
 
 function Home() {
+	const navigate = useNavigate();
 	const classes = useStyles();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [categories, setCategories] = useState<Array<Category>>([]);
@@ -69,7 +71,9 @@ function Home() {
 						</Select>
 					</FormControl>
 					<FormControl className={classes.formField}>
-						<InputLabel id="category-select">Difficulty</InputLabel>
+						<InputLabel id="category-select">
+							Difficulty Level
+						</InputLabel>
 						<Select
 							labelId="difficulty-select"
 							id="difficulty-select"
@@ -92,6 +96,14 @@ function Home() {
 					</FormControl>
 					<Box display="flex" justifyContent="center" p={2}>
 						<Button
+							onClick={(_) =>
+								navigate("/playzone", {
+									state: {
+										categoryId: selectedCategoryId,
+										difficulty: selectedDifficulty,
+									},
+								})
+							}
 							size="large"
 							variant="contained"
 							color="secondary"

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { Categories, ServerError } from "./home.types"
+import { Categories, ServerError } from "./Home.types"
 
 export const getCategories = async (): Promise<Categories|ServerError> => {
     try {
