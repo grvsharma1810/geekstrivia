@@ -3,7 +3,6 @@ import {
 	useContext,	
 	useReducer,	
 } from "react";
-import { GameState } from "../App.types";
 import { GameReducer } from "../reducers/game-reducer";
 
 const GameContext = createContext({});

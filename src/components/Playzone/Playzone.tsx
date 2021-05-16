@@ -2,7 +2,6 @@ import {
 	CircularProgress,
 	Box,
 	Container,
-	Typography,
 	Button,
 } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
@@ -37,7 +36,7 @@ function Playzone() {
 			}
 			setIsLoading(false);
 		})();
-	}, [state]);
+	}, [state, gameDispatch]);
 
 	const skipQuestion = () => {
 		gameDispatch({ type: NEXT_QUESTION });

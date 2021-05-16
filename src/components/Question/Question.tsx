@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, Paper } from "@material-ui/core";
+import { Grid, Typography, Paper } from "@material-ui/core";
 import { useGame } from "../../providers/GameProvider";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
@@ -46,7 +46,7 @@ function Question({ question, score }: QuestionProp) {
 	return (
 		<>
 			<Typography
-				variant="h4"
+				variant="h5"
 				dangerouslySetInnerHTML={{
 					__html: question.question,
 				}}
