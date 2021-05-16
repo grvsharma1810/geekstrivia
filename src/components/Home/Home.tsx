@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Home.styles";
-import { getCategories } from "./Home.services";
+import { getCategories } from "./home.services";
 import { Category } from "./Home.types";
 
 function Home() {
