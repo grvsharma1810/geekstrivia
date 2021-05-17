@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { APIQuestions, Questions, ServerError } from "./Playzone.types";
 import {Option} from "../Question/Question.types"
+import { NEXT_QUESTION } from "../../reducers/game-reducer";
 
 export const getQuestions = async (
 	categoryId: number | undefined | null,
@@ -47,3 +48,5 @@ export const getQuestions = async (
 		return { errorMessage: "Something Went Wrong" };
 	}
 };
+
+

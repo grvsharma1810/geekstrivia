@@ -5,6 +5,7 @@ export type GameState = {
 	questions: Questions;
 	currentQuestion: number;
 	score: number;
+	optionClicked: boolean;
 };
 
 export type Action = {

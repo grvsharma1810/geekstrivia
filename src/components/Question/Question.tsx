@@ -1,14 +1,23 @@
 import { Grid, Typography, Paper } from "@material-ui/core";
 import { useGame } from "../../providers/GameProvider";
+import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
 import { GameContext } from "../../App.types";
-import { NEXT_QUESTION, SET_SCORE } from "../../reducers/game-reducer";
+import {
+	NEXT_QUESTION,
+	SET_OPTION_CLICKED,
+	SET_SCORE,
+} from "../../reducers/game-reducer";
+import { nextQuestion } from "../Playzone/Playzone.utils";
 
 function Question({ question, score }: QuestionProp) {
 	const classes = useStyles();
-	const { gameDispatch } = useGame() as GameContext;
-	let optionClicked = false;
+	const navigate = useNavigate();
+	const {
+		gameState: { optionClicked, currentQuestion, questions },
+		gameDispatch,
+	} = useGame() as GameContext;
 
 	const changeOptionColor = (
 		event: any,
@@ -25,7 +34,10 @@ function Question({ question, score }: QuestionProp) {
 
 	const handleOptionClick = (event: any, option: Option) => {
 		if (!optionClicked) {
-			optionClicked = true;
+			gameDispatch({
+				type: SET_OPTION_CLICKED,
+				payload: { optionClicked: true },
+			});
 			if (option.isCorrect) {
 				gameDispatch({
 					type: SET_SCORE,
@@ -37,9 +49,12 @@ function Question({ question, score }: QuestionProp) {
 			}
 			setTimeout(() => {
 				changeOptionColor(event, "inherit", "inherit");
-				gameDispatch({ type: NEXT_QUESTION });
-				optionClicked = false;
-			}, 1000);
+				gameDispatch({
+					type: SET_OPTION_CLICKED,
+					payload: { optionClicked: false },
+				});
+				nextQuestion(currentQuestion, questions, navigate, gameDispatch);
+			}, 500);
 		}
 	};
 
@@ -50,6 +65,7 @@ function Question({ question, score }: QuestionProp) {
 				dangerouslySetInnerHTML={{
 					__html: question.question,
 				}}
+				className={classes.question}
 				gutterBottom
 			/>
 			<Grid container spacing={2}>

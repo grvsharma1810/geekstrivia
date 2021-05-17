@@ -1,8 +1,4 @@
-import {
-	createContext,
-	useContext,	
-	useReducer,	
-} from "react";
+import { createContext, useContext, useReducer } from "react";
 import { GameReducer } from "../reducers/game-reducer";
 
 const GameContext = createContext({});
@@ -12,10 +8,13 @@ export const GameProvider = ({ children }: any) => {
 		questions: [],
 		currentQuestion: 0,
 		score: 0,
+		optionClicked: false,
 	});
 
 	return (
-		<GameContext.Provider value={{ gameState:state, gameDispatch:dispatch }}>
+		<GameContext.Provider
+			value={{ gameState: state, gameDispatch: dispatch }}
+		>
 			{children}
 		</GameContext.Provider>
 	);

@@ -44,6 +44,15 @@ function Home() {
 		setSelectedDifficulty(event.target.value);
 	};
 
+	const play = () => {
+		navigate("/playzone", {
+			state: {
+				categoryId: selectedCategoryId,
+				difficulty: selectedDifficulty,
+			},
+		});
+	};
+
 	return (
 		<>
 			{isLoading ? (
@@ -96,14 +105,7 @@ function Home() {
 					</FormControl>
 					<Box display="flex" justifyContent="center" p={2}>
 						<Button
-							onClick={(_) =>
-								navigate("/playzone", {
-									state: {
-										categoryId: selectedCategoryId,
-										difficulty: selectedDifficulty,
-									},
-								})
-							}
+							onClick={(_) => play()}
 							size="large"
 							variant="contained"
 							color="secondary"

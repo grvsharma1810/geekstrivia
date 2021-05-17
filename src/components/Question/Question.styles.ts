@@ -10,5 +10,8 @@ export const useStyles = makeStyles((theme: Theme) =>
 		optionValue: {
 			wordWrap: "break-word",
 		},
+		question:{
+			marginTop:theme.spacing(2)
+		}
 	})
 );

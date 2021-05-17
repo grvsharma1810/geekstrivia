@@ -5,6 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Playzone from "./components/Playzone/Playzone";
 import { Routes, Route } from "react-router-dom";
 import { GameProvider } from "./providers/GameProvider";
+import Report from "./components/Report/Report";
 
 function App() {
 	return (
@@ -14,7 +15,10 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<GameProvider>
-					<Route path="/playzone" element={<Playzone />} />
+					<Routes>
+						<Route path="/playzone" element={<Playzone />} />
+						<Route path="/report" element={<Report />} />
+					</Routes>
 				</GameProvider>
 			</Routes>
 		</>
