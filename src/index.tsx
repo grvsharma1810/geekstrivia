@@ -2,17 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { ThemeProvider } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
-import { theme } from "./theme";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-	<ThemeProvider theme={theme}>
-		<Router>
-			<App />
-		</Router>
-	</ThemeProvider>,
+	<Router>
+		<App />
+	</Router>,
 	document.getElementById("root")
 );
 

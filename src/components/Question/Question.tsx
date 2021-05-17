@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
 import { GameContext } from "../../App.types";
+import { useTheme } from "@material-ui/core/styles";
 import {
 	NEXT_QUESTION,
 	SET_OPTION_CLICKED,
@@ -12,6 +13,7 @@ import {
 import { nextQuestion } from "../Playzone/Playzone.utils";
 
 function Question({ question, score }: QuestionProp) {
+	const theme = useTheme();
 	const classes = useStyles();
 	const navigate = useNavigate();
 	const {
@@ -48,12 +50,23 @@ function Question({ question, score }: QuestionProp) {
 				changeOptionColor(event, "red", "white");
 			}
 			setTimeout(() => {
-				changeOptionColor(event, "inherit", "inherit");
+				changeOptionColor(
+					event,
+					theme.palette.background.paper,
+					theme.palette.getContrastText(
+						theme.palette.background.paper
+					)
+				);
 				gameDispatch({
 					type: SET_OPTION_CLICKED,
 					payload: { optionClicked: false },
 				});
-				nextQuestion(currentQuestion, questions, navigate, gameDispatch);
+				nextQuestion(
+					currentQuestion,
+					questions,
+					navigate,
+					gameDispatch
+				);
 			}, 500);
 		}
 	};
