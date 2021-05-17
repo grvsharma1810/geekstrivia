@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 			flexGrow: 1,
 		},
 		menuButton: {
-			marginRight: theme.spacing(2),
+			marginRight: theme.spacing(),
 			fontSize: "2rem",
 			cursor: "pointer",
 		},

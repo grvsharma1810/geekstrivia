@@ -5,12 +5,15 @@ import {
 	Button,
 	Grid,
 	Switch,
+	IconButton,
 } from "@material-ui/core";
 import LogoIcon from "../../assets/LogoIcon";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Navbar.styles";
 import { useTheme } from "@material-ui/core/styles";
 import { NavbarProps } from "./Nabar.types";
+import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness7Icon from "@material-ui/icons/Brightness7";
 
 function Navbar({ setMode }: NavbarProps) {
 	const theme = useTheme();
@@ -35,27 +38,14 @@ function Navbar({ setMode }: NavbarProps) {
 				<Typography className={classes.title} variant="h6" noWrap>
 					Geeks Trivia
 				</Typography>
-				<Typography component="div">
-					<Grid
-						component="label"
-						container
-						alignItems="center"
-						spacing={1}
-					>
-						<Grid item>Light</Grid>
-						<Grid item>
-							<Switch
-								checked={theme.palette.type === "dark"}
-								name="mode"
-								onChange={handleModeChange}
-								inputProps={{
-									"aria-label": "secondary checkbox",
-								}}
-							/>
-						</Grid>
-						<Grid item>Dark</Grid>
-					</Grid>
-				</Typography>
+				<IconButton aria-label="mode" onClick={handleModeChange}>
+					{theme.palette.type === "light" && (
+						<Brightness4Icon style={{ color: "white" }} />
+					)}
+					{theme.palette.type === "dark" && (
+						<Brightness7Icon style={{ color: "white" }} />
+					)}
+				</IconButton>
 			</Toolbar>
 		</AppBar>
 	);

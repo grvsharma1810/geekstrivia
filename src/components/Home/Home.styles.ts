@@ -12,6 +12,9 @@ export const useStyles = makeStyles((theme: Theme) =>
         playButton:{
             fontWeight:theme.typography.fontWeightBold,
             fontSize:theme.typography.h5.fontSize
+        },
+        image:{
+            fontSize: "12rem"
         }
     })
 )

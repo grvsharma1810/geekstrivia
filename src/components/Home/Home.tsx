@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Home.styles";
 import { getCategories } from "./Home.services";
 import { Category } from "./Home.types";
+import LogoIcon from "../../assets/LogoIcon";
 
 function Home() {
 	const navigate = useNavigate();
@@ -61,6 +62,9 @@ function Home() {
 				</Box>
 			) : (
 				<Container maxWidth="md" className={classes.homeContainer}>
+					<Box mb={3} display="flex" justifyContent="center">
+						<LogoIcon className={classes.image}/>
+					</Box>
 					<FormControl className={classes.formField}>
 						<InputLabel id="category-select">Category</InputLabel>
 						<Select
