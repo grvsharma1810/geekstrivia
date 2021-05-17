@@ -4,8 +4,6 @@ import { useStyles } from "./Timer.styles";
 import { useGame } from "../../providers/GameProvider";
 import { useNavigate } from "react-router-dom";
 import { setInterval } from "timers";
-import { GameContext } from "../../App.types";
-import { NEXT_QUESTION } from "../../reducers/game-reducer";
 import { nextQuestion } from "../Playzone/Playzone.utils";
 
 function Timer() {
@@ -13,11 +11,11 @@ function Timer() {
 	const {
 		gameState: { currentQuestion, optionClicked, questions },
 		gameDispatch,
-	} = useGame() as GameContext;
+	} = useGame();
 	const classes = useStyles();
 	const [time, setTime] = useState<number>(-1);
 	if (time === 0 && !optionClicked) {
-        nextQuestion(currentQuestion, questions, navigate, gameDispatch);
+		nextQuestion(currentQuestion, questions, navigate, gameDispatch);
 	}
 
 	useEffect(() => {

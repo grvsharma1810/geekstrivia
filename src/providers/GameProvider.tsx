@@ -1,7 +1,8 @@
 import { createContext, useContext, useReducer } from "react";
+import { GameContext } from "../App.types";
 import { GameReducer } from "../reducers/game-reducer";
 
-const GameContext = createContext({});
+const Gamecontext = createContext({});
 
 export const GameProvider = ({ children }: any) => {
 	const [state, dispatch] = useReducer(GameReducer, {
@@ -12,14 +13,14 @@ export const GameProvider = ({ children }: any) => {
 	});
 
 	return (
-		<GameContext.Provider
+		<Gamecontext.Provider
 			value={{ gameState: state, gameDispatch: dispatch }}
 		>
 			{children}
-		</GameContext.Provider>
+		</Gamecontext.Provider>
 	);
 };
 
-export const useGame = () => {
-	return useContext(GameContext);
+export const useGame = () : GameContext => {
+	return useContext(Gamecontext) as GameContext;
 };

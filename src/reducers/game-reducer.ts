@@ -5,21 +5,18 @@ export const NEXT_QUESTION = "nextQuestion";
 export const SET_SCORE = "setScore";
 export const SET_OPTION_CLICKED = "setOptionClicked";
 
-export const GameReducer = (
-	state: GameState,
-	{ type, payload }: Action
-): GameState => {
-	switch (type) {
+export const GameReducer = (state: GameState, action: Action): GameState => {
+	switch (action.type) {
 		case SET_QUESTIONS:
 			return {
 				...state,
-				questions: payload.questions,
+				questions: action.payload.questions,
 			};
 
 		case SET_SCORE:
 			return {
 				...state,
-				score: payload.score,
+				score: action.payload.score,
 			};
 
 		case NEXT_QUESTION:
@@ -31,7 +28,7 @@ export const GameReducer = (
 		case SET_OPTION_CLICKED:
 			return {
 				...state,
-				optionClicked: payload.optionClicked,
+				optionClicked: action.payload.optionClicked,
 			};
 
 		default:

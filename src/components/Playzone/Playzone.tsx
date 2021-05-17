@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useGame } from "../../providers/GameProvider";
 import { useStyles } from "./Playzone.styles";
 import { getQuestions } from "./Playzone.services";
-import { GameContext } from "../../App.types";
 import { SET_QUESTIONS } from "../../reducers/game-reducer";
 import Question from "../Question/Question";
 import Timer from "../Timer/Timer";
@@ -16,9 +15,8 @@ function Playzone() {
 	const {
 		gameState: { questions, currentQuestion, score },
 		gameDispatch,
-	} = useGame() as GameContext;
+	} = useGame();
 	const { state } = useLocation() as any;
-	console.log({ questions, currentQuestion, score });
 	const classes = useStyles();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 

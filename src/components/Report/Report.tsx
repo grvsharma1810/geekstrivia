@@ -1,12 +1,11 @@
 import { Box, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { GameContext } from "../../App.types";
 import { useGame } from "../../providers/GameProvider";
 
 function Report() {
 	const {
 		gameState: { score },
-	} = useGame() as GameContext;
+	} = useGame();
 
 	return (
 		<Box mt={2} mb={2} textAlign="center">

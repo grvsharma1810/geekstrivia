@@ -3,10 +3,8 @@ import { useGame } from "../../providers/GameProvider";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
-import { GameContext } from "../../App.types";
 import { useTheme } from "@material-ui/core/styles";
 import {
-	NEXT_QUESTION,
 	SET_OPTION_CLICKED,
 	SET_SCORE,
 } from "../../reducers/game-reducer";
@@ -19,13 +17,13 @@ function Question({ question, score }: QuestionProp) {
 	const {
 		gameState: { optionClicked, currentQuestion, questions },
 		gameDispatch,
-	} = useGame() as GameContext;
+	} = useGame();
 
 	const changeOptionColor = (
 		event: any,
 		backgroundColor: string,
 		color: string
-	) => {
+	): void => {
 		event.target.style.color = color;
 		if (event.target.tagName === "P") {
 			event.target.parentElement.style.backgroundColor = backgroundColor;
