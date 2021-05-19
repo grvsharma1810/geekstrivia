@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
 import { useTheme } from "@material-ui/core/styles";
-import {
-	SET_OPTION_CLICKED,
-	SET_SCORE,
-} from "../../reducers/game-reducer";
+import { SET_OPTION_CLICKED, SET_SCORE } from "../../reducers/game-reducer";
 import { nextQuestion } from "../Playzone/Playzone.utils";
 
 function Question({ question, score }: QuestionProp) {
 	const theme = useTheme();
+	console.log(theme);
 	const classes = useStyles();
 	const navigate = useNavigate();
 	const {

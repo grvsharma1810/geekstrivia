@@ -5,6 +5,7 @@ import { useGame } from "../../providers/GameProvider";
 import { useNavigate } from "react-router-dom";
 import { setInterval } from "timers";
 import { nextQuestion } from "../Playzone/Playzone.utils";
+const TOTAL_TIME = 15
 
 function Timer() {
 	const navigate = useNavigate();
@@ -13,20 +14,23 @@ function Timer() {
 		gameDispatch,
 	} = useGame();
 	const classes = useStyles();
-	const [time, setTime] = useState<number>(-1);
-	if (time === 0 && !optionClicked) {
-		nextQuestion(currentQuestion, questions, navigate, gameDispatch);
-	}
+	const [time, setTime] = useState<number>(-1);	
 
 	useEffect(() => {
-		setTime(() => 30);
+		if (time === 0 && !optionClicked) {
+			nextQuestion(currentQuestion, questions, navigate, gameDispatch);
+		}
+	}, [time, optionClicked]);
+
+	useEffect(() => {
+		setTime(() => TOTAL_TIME);
 	}, [currentQuestion]);
 
-	useEffect((): any => {
-		const clearInterval = setInterval(() => {
+	useEffect(() => {
+		const intervalId = setInterval(() => {
 			setTime((time) => time - 1);
 		}, 1000);
-		return clearInterval;
+		return () => clearInterval(intervalId);
 	}, []);
 
 	return (

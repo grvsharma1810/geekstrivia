@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { APIQuestions, Questions, ServerError } from "./Playzone.types";
-import {Option} from "../Question/Question.types"
+import { flattenQuestionsFromAPI } from "./Playzone.utils";
 
 export const getQuestions = async (
 	categoryId: number | undefined | null,
@@ -13,30 +13,7 @@ export const getQuestions = async (
 	try {
 		const response = await axios.get<APIQuestions>(url);
 		console.log(response);
-		return response.data.results.map((item) => {
-			let options = [
-				...item.incorrect_answers.map(
-					(answer) =>
-						({
-							value: answer,
-							isCorrect: false,
-						} as Option)
-				),
-			]
-			options.splice(Math.floor(Math.random() * 3), 0, {
-				value: item.correct_answer,
-				isCorrect: true,
-			})
-
-			return {
-				category: item.category,
-				type: item.type,
-				difficulty: item.difficulty,
-				question: item.question,
-				options: options
-			};
-		}) as Questions;
-		
+		return flattenQuestionsFromAPI(response.data);		
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
 			const serverError = error as AxiosError<ServerError>;
@@ -47,5 +24,3 @@ export const getQuestions = async (
 		return { errorMessage: "Something Went Wrong" };
 	}
 };
-
-

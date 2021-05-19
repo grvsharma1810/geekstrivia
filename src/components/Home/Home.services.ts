@@ -3,7 +3,7 @@ import { Categories, ServerError } from "./Home.types"
 
 export const getCategories = async (): Promise<Categories|ServerError> => {
     try {
-        const response = await axios.get<Categories>("https://opentdb.com/api_category.php")        
+        const response = await axios.get<Categories>("https://opentdb.com/api_category.php")
         return response.data;
     } catch (error) {    
         if(axios.isAxiosError(error)){            
