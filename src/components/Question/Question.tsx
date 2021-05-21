@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
 import { useTheme } from "@material-ui/core/styles";
-import { SET_OPTION_CLICKED, SET_SCORE } from "../../reducers/game-reducer";
+import { SET_OPTION_CLICKED, SET_SCORE, SET_SELECTED_OPTION } from "../../reducers/game-reducer";
 import { nextQuestion } from "../Playzone/Playzone.utils";
 
 function Question({ question, score }: QuestionProp) {
 	const theme = useTheme();
-	console.log(theme);
+	// console.log(theme);
 	const classes = useStyles();
 	const navigate = useNavigate();
 	const {
@@ -30,7 +30,7 @@ function Question({ question, score }: QuestionProp) {
 		}
 	};
 
-	const handleOptionClick = (event: any, option: Option) => {
+	const handleOptionClick = (event: any, option: Option, optionIndex: number): void => {
 		if (!optionClicked) {
 			gameDispatch({
 				type: SET_OPTION_CLICKED,
@@ -57,6 +57,7 @@ function Question({ question, score }: QuestionProp) {
 					type: SET_OPTION_CLICKED,
 					payload: { optionClicked: false },
 				});
+				gameDispatch({ type: SET_SELECTED_OPTION, payload: {option: optionIndex}})
 				nextQuestion(
 					currentQuestion,
 					questions,
@@ -83,7 +84,7 @@ function Question({ question, score }: QuestionProp) {
 						<Grid item md={6} sm={6} xs={12} key={index}>
 							<Paper
 								onClick={(event) =>
-									handleOptionClick(event, option)
+									handleOptionClick(event, option, index)
 								}
 								elevation={3}
 								className={classes.options}

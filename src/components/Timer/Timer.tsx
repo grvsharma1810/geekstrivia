@@ -4,7 +4,8 @@ import { useStyles } from "./Timer.styles";
 import { useGame } from "../../providers/GameProvider";
 import { useNavigate } from "react-router-dom";
 import { setInterval } from "timers";
-import { nextQuestion } from "../Playzone/Playzone.utils";
+import { skipQuestion } from "../Playzone/Playzone.utils";
+
 const TOTAL_TIME = 15
 
 function Timer() {
@@ -18,7 +19,7 @@ function Timer() {
 
 	useEffect(() => {
 		if (time === 0 && !optionClicked) {
-			nextQuestion(currentQuestion, questions, navigate, gameDispatch);
+			skipQuestion(currentQuestion, questions, navigate, gameDispatch);
 		}
 	}, [time, optionClicked]);
 
