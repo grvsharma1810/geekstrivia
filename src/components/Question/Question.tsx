@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Question.styles";
 import { Option, QuestionProp } from "./Question.types";
 import { useTheme } from "@material-ui/core/styles";
-import { SET_OPTION_CLICKED, SET_SCORE, SET_SELECTED_OPTION } from "../../reducers/game-reducer";
+import {
+	SET_OPTION_CLICKED,
+	SET_SCORE,
+	SET_SELECTED_OPTION,
+} from "../../reducers/game-reducer";
 import { nextQuestion } from "../Playzone/Playzone.utils";
+import { getCorrectOptionIndex } from "./Question.utils";
+import CancelIcon from '@material-ui/icons/Cancel';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-function Question({ question, score }: QuestionProp) {
+function Question({ question, score, status }: QuestionProp) {
 	const theme = useTheme();
-	// console.log(theme);
 	const classes = useStyles();
 	const navigate = useNavigate();
 	const {
@@ -30,13 +36,17 @@ function Question({ question, score }: QuestionProp) {
 		}
 	};
 
-	const handleOptionClick = (event: any, option: Option, optionIndex: number): void => {
+	const handleOptionClick = (
+		event: any,
+		option: Option,
+		optionIndex: number
+	): void => {
 		if (!optionClicked) {
 			gameDispatch({
 				type: SET_OPTION_CLICKED,
 				payload: { optionClicked: true },
 			});
-			if (option.isCorrect) {
+			if (option.isCorrect && score !== undefined) {
 				gameDispatch({
 					type: SET_SCORE,
 					payload: { score: score + 1 },
@@ -57,7 +67,10 @@ function Question({ question, score }: QuestionProp) {
 					type: SET_OPTION_CLICKED,
 					payload: { optionClicked: false },
 				});
-				gameDispatch({ type: SET_SELECTED_OPTION, payload: {option: optionIndex}})
+				gameDispatch({
+					type: SET_SELECTED_OPTION,
+					payload: { option: optionIndex },
+				});
 				nextQuestion(
 					currentQuestion,
 					questions,
@@ -78,29 +91,113 @@ function Question({ question, score }: QuestionProp) {
 				className={classes.question}
 				gutterBottom
 			/>
-			<Grid container spacing={2}>
-				{question.options.map((option, index) => {
-					return (
-						<Grid item md={6} sm={6} xs={12} key={index}>
-							<Paper
-								onClick={(event) =>
-									handleOptionClick(event, option, index)
-								}
-								elevation={3}
-								className={classes.options}
-							>
-								<Typography
-									align="center"
-									className={classes.optionValue}
-									dangerouslySetInnerHTML={{
-										__html: option.value,
-									}}
-								/>
-							</Paper>
+			{status === "RUNNING" ? (
+				<Grid container spacing={2}>
+					{question.options.map((option, index) => {
+						return (
+							<Grid item md={6} sm={6} xs={12} key={index}>
+								<Paper
+									onClick={(event) =>
+										handleOptionClick(event, option, index)
+									}
+									elevation={3}
+									className={classes.options}
+								>
+									<Typography
+										align="center"
+										className={classes.optionValue}
+										dangerouslySetInnerHTML={{
+											__html: option.value,
+										}}
+									/>
+								</Paper>
+							</Grid>
+						);
+					})}
+				</Grid>
+			) : (
+				<>
+					{question.selectedOption ===
+					getCorrectOptionIndex(question.options) ? (
+						<Grid container spacing={2}>
+							{question.options.map((option, index) => {
+								return (
+									<Grid
+										item
+										md={6}
+										sm={6}
+										xs={12}
+										key={index}
+									>
+										<Paper
+											elevation={3}
+											className={`${classes.options} ${
+												option.isCorrect
+													? classes.correctOption
+													: ""
+											}`}
+										>											
+											<Typography
+												align="center"
+												className={classes.optionValue}												
+											>
+												{option.isCorrect && <CheckCircleIcon/>}
+												&nbsp;&nbsp;
+												<span dangerouslySetInnerHTML={{
+													__html: option.value,
+												}}/>
+											</Typography>
+										</Paper>
+									</Grid>
+								);
+							})}
 						</Grid>
-					);
-				})}
-			</Grid>
+					) : (
+						<Grid container spacing={2}>
+							{question.options.map((option, index) => {
+								return (
+									<Grid
+										item
+										md={6}
+										sm={6}
+										xs={12}
+										key={index}
+									>
+										<Paper
+											elevation={3}
+											className={`${classes.options} ${
+												option.isCorrect
+													? classes.correctOption
+													: ""
+											} ${
+												index ===
+												question.selectedOption
+													? classes.wrongOption
+													: ""
+											}`}
+										>
+											<Typography
+												align="center"
+												className={classes.optionValue}
+											>
+												{index ===
+													question.selectedOption && (
+													<CancelIcon />
+												)}&nbsp;&nbsp;
+												<span
+													dangerouslySetInnerHTML={{
+														__html: option.value,
+													}}
+												/>
+											</Typography>
+										</Paper>
+									</Grid>
+								);
+							})}
+						</Grid>
+					)}
+				</>
+			)}
 		</>
 	);
 }

@@ -5,13 +5,24 @@ export const useStyles = makeStyles((theme: Theme) =>
 		options: {
 			width: "100%",
 			padding: theme.spacing(2),
-            cursor:"pointer"
+			cursor: "pointer",
 		},
 		optionValue: {
 			wordWrap: "break-word",
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
 		},
-		question:{
-			marginTop:theme.spacing(2)
-		}
+		question: {
+			marginTop: theme.spacing(1),
+		},
+		correctOption: {
+			backgroundColor: "green",
+			color: "white",
+		},
+		wrongOption: {
+			backgroundColor: "red",
+			color: "white",
+		},
 	})
 );

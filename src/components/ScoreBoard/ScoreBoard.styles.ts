@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		scoreBoard: {
 			borderRadius: theme.spacing(2),
-			backgroundColor: theme.palette.primary.light,
+			backgroundColor: theme.palette.primary.main,
 			marginBottom: theme.spacing(2),
 		},
 		score: {

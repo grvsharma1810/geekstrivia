@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useGame } from "../../providers/GameProvider";
 import { useStyles } from "./Playzone.styles";
 import { getQuestions } from "./Playzone.services";
-import { SET_QUESTIONS } from "../../reducers/game-reducer";
+import {
+	SET_GAME_STATUS,
+	SET_QUESTIONS,
+} from "../../reducers/game-reducer";
 import Question from "../Question/Question";
 import Timer from "../Timer/Timer";
 import GameStartSound from "../../assets/game-start.mp3";
@@ -14,7 +17,7 @@ function Playzone() {
 	const navigate = useNavigate();
 	const { gameState, gameDispatch } = useGame();
 	console.log(gameState);
-	const { questions, currentQuestion, score } = gameState;
+	const { questions, currentQuestion, score, status } = gameState;
 	const { state } = useLocation() as any;
 	const classes = useStyles();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -30,6 +33,10 @@ function Playzone() {
 			} else {
 				gameDispatch({ type: SET_QUESTIONS, payload: { questions } });
 			}
+			gameDispatch({
+				type: SET_GAME_STATUS,
+				payload: { status: "RUNNING" },
+			});
 			playSound(GameStartSound);
 			setIsLoading(false);
 		})();
@@ -60,13 +67,17 @@ function Playzone() {
 						<Question
 							question={questions[currentQuestion]}
 							score={score}
+							status={status}
 						/>
 					</Container>
 					<Container
 						maxWidth="md"
 						className={classes.skipButtonContainer}
 					>
-						<Button variant="contained" onClick={handleSkipQuestion}>
+						<Button
+							variant="contained"
+							onClick={handleSkipQuestion}
+						>
 							Skip Question
 						</Button>
 					</Container>

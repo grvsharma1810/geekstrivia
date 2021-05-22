@@ -1,4 +1,4 @@
-export type Question = {	
+export type Question = {
 	category: string;
 	type: string;
 	difficulty: string;
@@ -8,12 +8,13 @@ export type Question = {
 	selectedOption: null | number;
 };
 
-export type Option = {	
+export type Option = {
 	value: string;
 	isCorrect: boolean;
 };
 
 export type QuestionProp = {
 	question: Question;
-	score: number;
+	score?: number;
+	status: "NOT_STARTED" | "RUNNING" | "COMPLETED";
 };

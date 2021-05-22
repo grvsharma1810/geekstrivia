@@ -15,10 +15,12 @@ import { useStyles } from "./Home.styles";
 import { getCategories } from "./Home.services";
 import { Category } from "./Home.types";
 import HomePageBanner from "../../assets/banner.svg";
+import { useGame } from "../../providers/GameProvider";
 
 function Home() {
 	const navigate = useNavigate();
 	const classes = useStyles();
+	const { gameDispatch } = useGame();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [categories, setCategories] = useState<Array<Category>>([]);
 	const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
@@ -64,7 +66,9 @@ function Home() {
 			) : (
 				<>
 					<Box mb={3} className={classes.bannerBox}>
-						<Typography className={classes.bannerText}>Test Your Knowledge With Quizes</Typography>
+						<Typography className={classes.bannerText}>
+							Test Your Knowledge With Quizes
+						</Typography>
 						<img src={HomePageBanner} className={classes.image} />
 					</Box>
 					<Container maxWidth="md" className={classes.homeContainer}>

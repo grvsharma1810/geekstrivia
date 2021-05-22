@@ -6,6 +6,7 @@ export const SKIP_QUESTION = "skipQuestion";
 export const SET_SCORE = "setScore";
 export const SET_OPTION_CLICKED = "setOptionClicked";
 export const SET_SELECTED_OPTION = "setSelectedOption";
+export const SET_GAME_STATUS = "setGameStatus";
 
 export const GameReducer = (state: GameState, action: Action): GameState => {
 	switch (action.type) {
@@ -50,8 +51,14 @@ export const GameReducer = (state: GameState, action: Action): GameState => {
 				questions: state.questions.map((question, index) =>
 					index !== state.currentQuestion
 						? question
-						: { ...question, selectedOption: action.payload.option}
+						: { ...question, selectedOption: action.payload.option }
 				),
+			};
+
+		case SET_GAME_STATUS:
+			return {
+				...state,
+				status: action.payload.status,
 			};
 
 		default:

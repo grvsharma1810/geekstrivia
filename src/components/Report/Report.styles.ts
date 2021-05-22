@@ -7,6 +7,8 @@ export const useStyles = makeStyles((theme: Theme) =>
 			display: "flex",
 			justifyContent: "center",
             width:"100%",
+			marginTop:"2rem",
+			marginBottom:"2rem"
 		},
 	})
 );

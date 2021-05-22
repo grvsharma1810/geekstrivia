@@ -1,7 +1,11 @@
 import { APIQuestions, Questions } from "./Playzone.types";
-import { NEXT_QUESTION, SKIP_QUESTION } from "../../reducers/game-reducer";
+import {
+	NEXT_QUESTION,
+	SET_GAME_STATUS,
+	SKIP_QUESTION,
+} from "../../reducers/game-reducer";
 import GameEndSound from "../../assets/game-end.mp3";
-import { Action } from "../../App.types";
+import { Action, GameState } from "../../App.types";
 import { Option } from "../Question/Question.types";
 
 export const nextQuestion = (
@@ -12,6 +16,10 @@ export const nextQuestion = (
 ) => {
 	console.log("next question");
 	if (currentQuestion === questions.length - 1) {
+		gameDispatch({
+			type: SET_GAME_STATUS,
+			payload: { status: "COMPLETED" },
+		});
 		playSound(GameEndSound);
 		navigate("/report");
 	} else {
@@ -27,6 +35,10 @@ export const skipQuestion = (
 ) => {
 	console.log("question skipped");
 	if (currentQuestion === questions.length - 1) {
+		gameDispatch({
+			type: SET_GAME_STATUS,
+			payload: { status: "COMPLETED" },
+		});
 		playSound(GameEndSound);
 		navigate("/report");
 	} else {

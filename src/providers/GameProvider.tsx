@@ -10,6 +10,7 @@ export const GameProvider = ({ children }: any) => {
 		currentQuestion: 0,
 		score: 0,
 		optionClicked: false,
+		status: "NOT_STARTED",
 	});
 
 	return (
@@ -21,6 +22,6 @@ export const GameProvider = ({ children }: any) => {
 	);
 };
 
-export const useGame = () : GameContext => {
+export const useGame = (): GameContext => {
 	return useContext(Gamecontext) as GameContext;
 };
