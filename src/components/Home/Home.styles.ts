@@ -19,17 +19,28 @@ export const useStyles = makeStyles((theme: Theme) =>
 		bannerText: {
 			fontSize: "6vw",
 			position: "absolute",
-			top: "1.5vw",			
-            left:"7vw",
-            width:"30%",            
-            textAlign: "center",
-            fontWeight: theme.typography.fontWeightBold,
-            color: theme.palette.type === "light" ? "#2F2E41" : "white"
+			top: "1.5vw",
+			left: "7vw",
+			width: "30%",
+			textAlign: "center",
+			fontWeight: theme.typography.fontWeightBold,
+			color: theme.palette.type === "light" ? "#2F2E41" : "white",
 		},
 		bannerBox: {
-            marginTop: theme.spacing(4),
+			marginTop: theme.spacing(4),
 			position: "relative",
 		},
+		card: {
+			maxWidth: "100%",
+		},
+		cardContent: {
+			textAlign: "center",
+			backgroundColor:theme.palette.primary.main,
+			color: "white",
+		},
+		cardActions:{
+			display: "flex",
+			justifyContent: "center",
+		}
 	})
 );
-

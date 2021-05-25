@@ -1,13 +1,11 @@
-import { Question } from "../Question/Question.types";
+import { Option, Question } from "../Question/Question.types";
 
 export type APIQuestions = {
-	results: {
-		category: string;
-		type: string;
-		difficulty: string;
+	questions: {
+		_id: string,
+		questionSetId: string,
 		question: string;
-		correct_answer: string;
-		incorrect_answers: string[];
+		options: Option[]
 	}[];
 };
 

@@ -1,7 +1,6 @@
 export type Question = {
-	category: string;
-	type: string;
-	difficulty: string;
+	_id: string,
+	questionSetId: string,
 	question: string;
 	options: Option[];
 	skipped: boolean;
@@ -9,6 +8,7 @@ export type Question = {
 };
 
 export type Option = {
+	_id: string,
 	value: string;
 	isCorrect: boolean;
 };

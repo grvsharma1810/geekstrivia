@@ -12,8 +12,7 @@ function Report() {
 	const navigate = useNavigate();
 	const {
 		gameState: { score, questions, status },
-	} = useGame();	
-	console.log(status);
+	} = useGame();
 
 	const playAgain = (): void => {
 		navigate("/");
@@ -25,10 +24,12 @@ function Report() {
 			<ScoreBoard />
 			{questions.map((question, index) => {
 				return (
-					<>
-						<Box fontStyle="italic" mt={6} textAlign="center">Question {index + 1}</Box>
+					<div key={question._id}>
+						<Box fontStyle="italic" mt={6} textAlign="center">
+							Question {index + 1}
+						</Box>
 						<Question question={question} status={status} />
-					</>
+					</div>
 				);
 			})}
 			<Box className={classes.playAgainButtonContainer}>

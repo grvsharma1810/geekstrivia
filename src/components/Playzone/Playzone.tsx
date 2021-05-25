@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 import { useGame } from "../../providers/GameProvider";
 import { useStyles } from "./Playzone.styles";
 import { getQuestions } from "./Playzone.services";
-import {
-	SET_GAME_STATUS,
-	SET_QUESTIONS,
-} from "../../reducers/game-reducer";
+import { SET_GAME_STATUS, SET_QUESTIONS } from "../../reducers/game-reducer";
 import Question from "../Question/Question";
 import Timer from "../Timer/Timer";
 import GameStartSound from "../../assets/game-start.mp3";
@@ -16,18 +13,14 @@ import { skipQuestion, playSound } from "./Playzone.utils";
 function Playzone() {
 	const navigate = useNavigate();
 	const { gameState, gameDispatch } = useGame();
-	console.log(gameState);
 	const { questions, currentQuestion, score, status } = gameState;
 	const { state } = useLocation() as any;
 	const classes = useStyles();
-	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isLoading, setIsLoading] = useState<boolean>(true);	
 
 	useEffect(() => {
 		(async function () {
-			const questions = await getQuestions(
-				state.categoryId,
-				state.difficulty
-			);
+			const questions = await getQuestions(state.questionSetId);
 			if ("errorMessage" in questions) {
 				// Handle error
 			} else {

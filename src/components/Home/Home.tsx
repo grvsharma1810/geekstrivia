@@ -8,12 +8,18 @@ import {
 	Box,
 	Button,
 	Typography,
+	Card,
+	CardActionArea,
+	CardActions,
+	CardContent,
+	CardMedia,
+	Grid,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "./Home.styles";
-import { getCategories } from "./Home.services";
-import { Category } from "./Home.types";
+import { getQuestionSets } from "./Home.services";
+import { QuestionSet } from "./Home.types";
 import HomePageBanner from "../../assets/banner.svg";
 import { useGame } from "../../providers/GameProvider";
 
@@ -22,37 +28,25 @@ function Home() {
 	const classes = useStyles();
 	const { gameDispatch } = useGame();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [categories, setCategories] = useState<Array<Category>>([]);
-	const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
-	const [selectedDifficulty, setSelectedDifficulty] = useState<string>("any");
+	const [questionSets, setQuestionSets] = useState<Array<QuestionSet>>([]);
 
 	useEffect(() => {
 		(async function () {
 			setIsLoading(true);
-			const categories = await getCategories();
-			if ("trivia_categories" in categories) {
-				setCategories(categories.trivia_categories);
+			const questionSets = await getQuestionSets();
+			if ("questionSets" in questionSets) {
+				setQuestionSets(questionSets.questionSets);
 			} else {
 				// Handle Error
 			}
 			setIsLoading(false);
-			console.log(categories);
 		})();
 	}, []);
 
-	const handleCategoryChange = (event: any) => {
-		setSelectedCategoryId(event.target.value);
-	};
-
-	const handleDifficultyChange = (event: any) => {
-		setSelectedDifficulty(event.target.value);
-	};
-
-	const play = () => {
+	const play = (questionSetId: string) => {
 		navigate("/playzone", {
 			state: {
-				categoryId: selectedCategoryId,
-				difficulty: selectedDifficulty,
+				questionSetId: questionSetId,
 			},
 		});
 	};
@@ -72,64 +66,49 @@ function Home() {
 						<img src={HomePageBanner} className={classes.image} />
 					</Box>
 					<Container maxWidth="md" className={classes.homeContainer}>
-						<FormControl className={classes.formField}>
-							<InputLabel id="category-select">
-								Category
-							</InputLabel>
-							<Select
-								labelId="category-select"
-								id="category-select"
-								value={selectedCategoryId}
-								onChange={handleCategoryChange}
-							>
-								<MenuItem key={1} value={1}>
-									Any Category
-								</MenuItem>
-								{categories.map((category) => (
-									<MenuItem
-										key={category.id}
-										value={category.id}
-									>
-										{category.name}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-						<FormControl className={classes.formField}>
-							<InputLabel id="category-select">
-								Difficulty Level
-							</InputLabel>
-							<Select
-								labelId="difficulty-select"
-								id="difficulty-select"
-								value={selectedDifficulty}
-								onChange={handleDifficultyChange}
-							>
-								<MenuItem key={"any"} value={"any"}>
-									Any
-								</MenuItem>
-								<MenuItem key={"easy"} value={"easy"}>
-									Easy
-								</MenuItem>
-								<MenuItem key={"medium"} value={"medium"}>
-									Medium
-								</MenuItem>
-								<MenuItem key={"hard"} value={"hard"}>
-									Hard
-								</MenuItem>
-							</Select>
-						</FormControl>
-						<Box display="flex" justifyContent="center" p={2}>
-							<Button
-								onClick={(_) => play()}
-								size="large"
-								variant="contained"
-								color="secondary"
-								className={classes.playButton}
-							>
-								PLAY
-							</Button>
-						</Box>
+						<Grid container spacing={3}>
+							{questionSets.map((questionSet, index) => (
+								<Grid key={questionSet._id} item xs={12} sm={6} md={4}>
+									<Card className={classes.card}>
+										<CardActionArea>
+											<CardMedia
+												component="img"
+												alt={questionSet.name}
+												height="200"
+												image={`https://picsum.photos/400?random=${
+													index + 1
+												}`}
+												title="Contemplative Reptile"
+											/>
+											<CardContent
+												className={classes.cardContent}
+											>
+												<Box
+													fontSize={25}
+													fontWeight="fontWeightBold"
+												>
+													{questionSet.name.toUpperCase()}
+												</Box>
+											</CardContent>
+										</CardActionArea>
+										<CardActions
+											className={classes.cardActions}
+										>
+											<Button
+												onClick={() =>
+													play(questionSet._id)
+												}
+												fullWidth={true}
+												size="large"
+												color="primary"
+											>
+												Play
+											</Button>
+										</CardActions>
+									</Card>
+								</Grid>
+							))}
+						</Grid>
 					</Container>
 				</>
 			)}

@@ -1,9 +1,10 @@
 import axios, { AxiosError } from "axios"
-import { Categories, ServerError } from "./Home.types"
+import { ServerError, QuestionSets } from "./Home.types"
 
-export const getCategories = async (): Promise<Categories|ServerError> => {
+export const getQuestionSets = async (): Promise<QuestionSets|ServerError> => {
     try {
-        const response = await axios.get<Categories>("https://opentdb.com/api_category.php")
+        // const response = await axios.get<Categories>("https://opentdb.com/api_category.php")
+        const response = await axios.get<QuestionSets>("https://geekstrivia-backend.herokuapp.com/question-sets")
         return response.data;
     } catch (error) {    
         if(axios.isAxiosError(error)){            

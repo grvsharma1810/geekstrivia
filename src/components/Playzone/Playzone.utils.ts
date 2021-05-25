@@ -14,7 +14,6 @@ export const nextQuestion = (
 	navigate: any,
 	gameDispatch: React.Dispatch<Action>
 ) => {
-	console.log("next question");
 	if (currentQuestion === questions.length - 1) {
 		gameDispatch({
 			type: SET_GAME_STATUS,
@@ -33,7 +32,6 @@ export const skipQuestion = (
 	navigate: any,
 	gameDispatch: React.Dispatch<Action>
 ) => {
-	console.log("question skipped");
 	if (currentQuestion === questions.length - 1) {
 		gameDispatch({
 			type: SET_GAME_STATUS,
@@ -51,24 +49,12 @@ export const playSound = (Sound: string): void => {
 };
 
 export const flattenQuestionsFromAPI = (response: APIQuestions): Questions => {
-	return response.results.map((item) => {
-		let options: Option[] = [
-			...item.incorrect_answers.map((option) => ({
-				value: option,
-				isCorrect: false,
-			})),
-		];
-		options.splice(Math.floor(Math.random() * 3), 0, {
-			value: item.correct_answer,
-			isCorrect: true,
-		});
-
+	return response.questions.map((item) => {
 		return {
-			category: item.category,
-			type: item.type,
-			difficulty: item.difficulty,
+			_id: item._id,
+			questionSetId: item.questionSetId,
 			question: item.question,
-			options: options,
+			options: item.options,
 			skipped: false,
 			selectedOption: null,
 		};

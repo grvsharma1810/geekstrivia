@@ -1,10 +1,10 @@
-export type Category = {
-    id : number,
-    name : string
+export type QuestionSet = {
+    _id : string,
+    name: string
 }
 
-export type Categories = {
-    trivia_categories : Category[],
+export type QuestionSets = {
+    questionSets : QuestionSet[]
 }
 
 export type ServerError = { 
