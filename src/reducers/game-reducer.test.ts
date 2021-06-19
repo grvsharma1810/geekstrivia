@@ -1,12 +1,12 @@
-import {
-	GameReducer,
+import {	
 	NEXT_QUESTION,
 	SET_GAME_STATUS,
 	SET_QUESTIONS,
 	SET_SCORE,
 	SET_SELECTED_OPTION,
 	SKIP_QUESTION,
-} from "./game-reducer";
+} from "./actions";
+import { GameReducer } from "./game-reducer";
 import { Action, GameState } from "../App.types";
 import { QuestionsData } from "./game-reducer.test-data";
 

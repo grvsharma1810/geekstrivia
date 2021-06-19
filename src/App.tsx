@@ -8,6 +8,7 @@ import Playzone from "./components/Playzone/Playzone";
 import { Routes, Route } from "react-router-dom";
 import { GameProvider } from "./providers/GameProvider";
 import Report from "./components/Report/Report";
+import Instructions from "./components/Instructions/Instructions";
 import { useState } from "react";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 			<Navbar setMode={setMode} />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/instructions" element={<Instructions />} />
 				<GameProvider>
 					<Routes>
 						<Route path="/playzone" element={<Playzone />} />

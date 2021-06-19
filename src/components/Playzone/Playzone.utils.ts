@@ -3,7 +3,7 @@ import {
 	NEXT_QUESTION,
 	SET_GAME_STATUS,
 	SKIP_QUESTION,
-} from "../../reducers/game-reducer";
+} from "../../reducers/actions";
 import GameEndSound from "../../assets/game-end.mp3";
 import { Action, GameState } from "../../App.types";
 import { Option } from "../Question/Question.types";

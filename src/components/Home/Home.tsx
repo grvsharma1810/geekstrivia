@@ -31,20 +31,22 @@ function Home() {
 	const [questionSets, setQuestionSets] = useState<Array<QuestionSet>>([]);
 
 	useEffect(() => {
-		(async function () {
-			setIsLoading(true);
-			const questionSets = await getQuestionSets();
-			if ("questionSets" in questionSets) {
-				setQuestionSets(questionSets.questionSets);
-			} else {
-				// Handle Error
-			}
-			setIsLoading(false);
-		})();
+		if(questionSets.length === 0){
+			(async function () {			
+				setIsLoading(true);
+				const questionSets = await getQuestionSets();
+				if ("questionSets" in questionSets) {
+					setQuestionSets(questionSets.questionSets);
+				} else {
+					// Handle Error
+				}
+				setIsLoading(false);
+			})();
+		}		
 	}, []);
 
 	const play = (questionSetId: string) => {
-		navigate("/playzone", {
+		navigate("/instructions", {
 			state: {
 				questionSetId: questionSetId,
 			},
@@ -61,16 +63,26 @@ function Home() {
 				<>
 					<Box mb={3} className={classes.bannerBox}>
 						<Typography className={classes.bannerText}>
-							Test Your Knowledge With Quizes
+							Hip-Hop Quizes
 						</Typography>
 						<img src={HomePageBanner} className={classes.image} />
 					</Box>
 					<Container maxWidth="md" className={classes.homeContainer}>
 						<Grid container spacing={3}>
 							{questionSets.map((questionSet, index) => (
-								<Grid key={questionSet._id} item xs={12} sm={6} md={4}>
+								<Grid
+									key={questionSet._id}
+									item
+									xs={12}
+									sm={6}
+									md={4}
+								>
 									<Card className={classes.card}>
-										<CardActionArea>
+										<CardActionArea
+											onClick={() =>
+												play(questionSet._id)
+											}
+										>
 											<CardMedia
 												component="img"
 												alt={questionSet.name}
@@ -91,20 +103,6 @@ function Home() {
 												</Box>
 											</CardContent>
 										</CardActionArea>
-										<CardActions
-											className={classes.cardActions}
-										>
-											<Button
-												onClick={() =>
-													play(questionSet._id)
-												}
-												fullWidth={true}
-												size="large"
-												color="primary"
-											>
-												Play
-											</Button>
-										</CardActions>
 									</Card>
 								</Grid>
 							))}

@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 		bannerText: {
 			fontSize: "6vw",
 			position: "absolute",
-			top: "1.5vw",
+			top: "5vw",
 			left: "7vw",
 			width: "30%",
 			textAlign: "center",

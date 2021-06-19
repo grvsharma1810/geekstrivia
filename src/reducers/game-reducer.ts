@@ -1,12 +1,13 @@
 import { GameState, Action } from "../App.types";
-
-export const SET_QUESTIONS = "setQuestions";
-export const NEXT_QUESTION = "nextQuestion";
-export const SKIP_QUESTION = "skipQuestion";
-export const SET_SCORE = "setScore";
-export const SET_OPTION_CLICKED = "setOptionClicked";
-export const SET_SELECTED_OPTION = "setSelectedOption";
-export const SET_GAME_STATUS = "setGameStatus";
+import {
+	NEXT_QUESTION,
+	SET_GAME_STATUS,
+	SET_OPTION_CLICKED,
+	SET_QUESTIONS,
+	SET_SCORE,
+	SET_SELECTED_OPTION,
+	SKIP_QUESTION,
+} from "./actions";
 
 export const GameReducer = (state: GameState, action: Action): GameState => {
 	switch (action.type) {

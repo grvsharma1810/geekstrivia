@@ -8,11 +8,11 @@ import {
 	SET_OPTION_CLICKED,
 	SET_SCORE,
 	SET_SELECTED_OPTION,
-} from "../../reducers/game-reducer";
+} from "../../reducers/actions";
 import { nextQuestion } from "../Playzone/Playzone.utils";
 import { getCorrectOptionIndex } from "./Question.utils";
-import CancelIcon from '@material-ui/icons/Cancel';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from "@material-ui/icons/Cancel";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 function Question({ question, score, status }: QuestionProp) {
 	const theme = useTheme();
@@ -136,16 +136,20 @@ function Question({ question, score, status }: QuestionProp) {
 													? classes.correctOption
 													: ""
 											}`}
-										>											
+										>
 											<Typography
 												align="center"
-												className={classes.optionValue}												
+												className={classes.optionValue}
 											>
-												{option.isCorrect && <CheckCircleIcon/>}
+												{option.isCorrect && (
+													<CheckCircleIcon />
+												)}
 												&nbsp;&nbsp;
-												<span dangerouslySetInnerHTML={{
-													__html: option.value,
-												}}/>
+												<span
+													dangerouslySetInnerHTML={{
+														__html: option.value,
+													}}
+												/>
 											</Typography>
 										</Paper>
 									</Grid>
@@ -183,7 +187,8 @@ function Question({ question, score, status }: QuestionProp) {
 												{index ===
 													question.selectedOption && (
 													<CancelIcon />
-												)}&nbsp;&nbsp;
+												)}
+												&nbsp;&nbsp;
 												<span
 													dangerouslySetInnerHTML={{
 														__html: option.value,

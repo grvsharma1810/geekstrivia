@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useGame } from "../../providers/GameProvider";
 import { useStyles } from "./Playzone.styles";
 import { getQuestions } from "./Playzone.services";
-import { SET_GAME_STATUS, SET_QUESTIONS } from "../../reducers/game-reducer";
+import { SET_GAME_STATUS, SET_QUESTIONS } from "../../reducers/actions";
 import Question from "../Question/Question";
 import Timer from "../Timer/Timer";
 import GameStartSound from "../../assets/game-start.mp3";

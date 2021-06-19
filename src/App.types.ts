@@ -8,7 +8,7 @@ import {
 	SKIP_QUESTION,
 	SET_SELECTED_OPTION,
 	SET_GAME_STATUS,
-} from "./reducers/game-reducer";
+} from "./reducers/actions";
 
 export type GameState = {
 	questions: Questions;
